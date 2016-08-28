@@ -1,6 +1,75 @@
 @startuml
 skinparam nodesep 80
 skinparam ranksep 80
+hide circle
+hide method
+
+class User {
+  <<PK>> id : uuid
+  ..
+  name : string
+  email : string
+  active : boolean
+  confirmed_at : timestamp
+  last_login_at : timestamp
+  current_login_at : timestamp
+  last_login_ip : cidr
+  current_login_ip : cidr
+  login_count : integer
+}
+
+class Company {
+  <<PK>> id : uuid
+  ..
+  name : string
+  active : boolean
+}
+
+class Project {
+  <<PK>> id : uuid
+  ..
+  name : string
+  active : boolean
+}
+
+class Task {
+  <<PK>> id : uuid
+  ..
+  name : string
+  complete : boolean
+}
+
+class Pomodoro {
+  <<PK>> id : uuid
+  <<FK>> task_id : uuid
+  ..
+  note : text
+  created_at : timestamp
+  paused_at : timestamp
+  completed_at : timestamp
+}
+
+class Companies_Users {
+  <<FK>> company_id : uuid
+  <<FK>> user_id : uuid
+}
+
+class Projects_Users {
+  <<FK>> project_id : uuid
+  <<FK>> user_id : uuid
+  ..
+  hourly_rate : money
+}
+
+class Tasks_Users {
+  <<FK>> task_id : uuid
+  <<FK>> user_id : uuid
+}
+
+class Projects_Tasks {
+  <<FK>> project_id : uuid
+  <<FK>> task_id : uuid
+}
 
 Company "1" *- "0..*" Project : runs >
 Project "1" *- "0..*" Task : comprises >
