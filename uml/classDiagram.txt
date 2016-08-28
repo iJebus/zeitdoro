@@ -1,0 +1,13 @@
+@startuml
+skinparam nodesep 80
+skinparam ranksep 80
+
+Company "1" *- "0..*" Project : runs >
+Project "1" *- "0..*" Task : comprises >
+Task "1" *- "0..*" Pomodoro : comprises >
+
+User "1..*" --o "1..*" Company : forms >
+User "1..*" --o "0..*" Project : contributes >
+User "1..*" --> "0..*" Task : contributes >
+User "1" --> "0..*" Pomodoro : executes >
+@enduml
